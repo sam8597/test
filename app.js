@@ -1,3 +1,4 @@
+//不限文件的格式，图片 MP3 MP4 doc...
 // 1 下载第三方模块 multer
 
 // 2 引入2个模块 express/multer/fs
@@ -17,22 +18,10 @@ app.listen(3000);
 var upload = multer({dest:"upload/"})
 // 创建upload对象
 // 接收客户post请求
-//upload.single() 一次上传一张图片
+//upload.single() 一次上传一张图片、文件
 //mypic           指定上传文件表单 name="mypic"
 app.post("/upload",upload.single("mypic"),(req,res)=>{
-    //判断文件大小，拒绝大于2MB文件
-    var size = req.file.size/1000/1000;
-    if(size > 2 ){
-        res.send({code:-1,msg:"文件过大 超过2Mb"});
-        return;
-    }
-    //获取文件类型 图片
-    var type = req.file.mimetype;
-    var i2 = type .indexOf("image");
-    if(i2==-1){
-        res.send({code:-2,msg:"上传只能为图片"});
-        return;
-    }
+   
     // 创建新的文件名 1.jpg->13461346125.jpg
     // 时间戳+随机数
     var src = req.file.originalname;
